@@ -1,5 +1,6 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 
 namespace WatchList;
@@ -18,6 +19,11 @@ internal class Program
         AnalyticsService analyticsService = new AnalyticsService();
 
         List<MediaItem> loadedItems = fileManager.LoadFromJson(dataFilePath);
+        if (!File.Exists(dataFilePath))
+        {
+            loadedItems = GetDefaultItems();
+        }
+
         CatalogService catalogService = new CatalogService(loadedItems);
 
         catalogService.OnItemCompleted += ShowNotification;
@@ -32,5 +38,36 @@ internal class Program
     static void ShowNotification(string message)
     {
         Console.WriteLine($"\n*** {message} ***");
+    }
+
+    /// <summary>
+    /// Returns starter catalog items used on first launch when no saved data file exists.
+    /// </summary>
+    static List<MediaItem> GetDefaultItems()
+    {
+        return new List<MediaItem>
+        {
+            new Movie("Интерстеллар", "Фантастика", 2014, 169)
+            {
+                Status = WatchStatus.Completed,
+                Rating = new MediaRating(9, "Отличный саундтрек")
+            },
+            new Movie("Начало", "Триллер", 2010, 148),
+            new Movie("Дюна", "Фантастика", 2021, 155)
+            {
+                Status = WatchStatus.Planned
+            },
+            new Series("Во все тяжкие", "Драма", 2008, 5)
+            {
+                Status = WatchStatus.Completed,
+                WatchedEpisodes = 62,
+                Rating = new MediaRating(10, "Шедевр")
+            },
+            new Series("Очень странные дела", "Фантастика", 2016, 4)
+            {
+                Status = WatchStatus.Watching,
+                WatchedEpisodes = 12
+            }
+        };
     }
 }
