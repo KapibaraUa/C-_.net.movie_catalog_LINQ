@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "uhPqDlhHkg8=",
+  "success": true,
+  "projectFilePath": "C:\\Users\\artem\\RiderProjects\\Final project movie catalog\\Final project movie catalog\\Final project movie catalog.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\artem\\.nuget\\packages\\newtonsoft.json\\14.0.1-beta2\\newtonsoft.json.14.0.1-beta2.nupkg.sha512"
+  ],
+  "logs": []
+}
